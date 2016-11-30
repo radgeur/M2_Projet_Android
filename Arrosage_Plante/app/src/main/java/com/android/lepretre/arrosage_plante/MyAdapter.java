@@ -13,8 +13,13 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
+    //List of plant to display
     List<Plant> list;
 
+    /**
+     * Constuctor
+     * @param list list of Plant
+     */
     public MyAdapter(List<Plant> list){
         this.list = list;
     }
@@ -28,9 +33,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Plant plant = list.get(position);
-        /*holder.name.setText(String.valueOf(plant.getName()));
-        holder.frequency.setText("Fréquence d'arrosage : " + String.valueOf(plant.getFrequency()));
-        holder.lastSprinkle.setText("Arrosé il y a : " + String.valueOf(plant.getLastSprinkle()) + " jours");*/
         holder.bind(plant);
     }
 

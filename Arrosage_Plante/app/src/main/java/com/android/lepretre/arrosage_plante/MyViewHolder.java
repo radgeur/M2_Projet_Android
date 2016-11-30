@@ -11,16 +11,14 @@ import android.widget.TextView;
 public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener {
 
     //ATTRIBUTES
-    //name of the plant
+    //Textbox to write the pieces of information about the plant
     public TextView name;
-    //frequency between two sprinkle
     public TextView frequency;
-    //Number of days since the last sprinkle
     public TextView lastSprinkle;
 
     //METHODS
     /**
-     * A view for one item
+     * Constructor
      * @param v the view
      */
     public MyViewHolder(View v){
@@ -30,6 +28,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerVie
         lastSprinkle = (TextView) v.findViewById(R.id.textView3);
     }
 
+    /**
+     * Bind the pieces of information of a plant with the textbox of the viewholder
+     * @param plant
+     */
     public void bind(Plant plant){
         name.setText(String.valueOf(plant.getName()));
         frequency.setText("Fréquence d'arrosage : " + String.valueOf(plant.getFrequency()));
@@ -39,7 +41,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerVie
 
     @Override
     public void onClick(View view) {
-        //Toast.makeText(c, "It works", Toast.LENGTH_SHORT).show();
+
     }
 
 
