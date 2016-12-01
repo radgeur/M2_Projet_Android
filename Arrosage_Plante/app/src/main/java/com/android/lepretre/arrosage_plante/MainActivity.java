@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private List<Plant> plants = new ArrayList<Plant>();
-    private MyDatabaseHelper dbHelper = new MyDatabaseHelper(getBaseContext());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 fixtures();
-                /*SQLiteDatabase db = dbHelper.getReadableDatabase();
+                MyDatabaseHelper dbHelper = new MyDatabaseHelper(getApplicationContext());
+                SQLiteDatabase db = dbHelper.getReadableDatabase();
                 Cursor plantsFixtures = db.query(MyDatabaseHelper.TABLE_NAME, null, null, null, null, null, null, null);
                 plantsFixtures.moveToFirst();
                 while(!plantsFixtures.isAfterLast()){
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                             Integer.parseInt(plantsFixtures.getString(3))));
                     plantsFixtures.moveToNext();
                 }
-                recyclerView.setAdapter(new MyAdapter(plants));*/
+                recyclerView.setAdapter(new MyAdapter(plants));
             }
         });
 
@@ -54,11 +56,13 @@ public class MainActivity extends AppCompatActivity {
      * insert fixtures into the plant table of the database
      */
     private void fixtures() {
+        MyDatabaseHelper dbHelper = new MyDatabaseHelper(getApplicationContext());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
         ContentValues plant1 = new ContentValues();
         plant1.put(MyDatabaseHelper.FIELD_NAME, "Rose");
-        plant1.put(MyDatabaseHelper.FIELD_NAME, "Rose");
-        plant1.put(MyDatabaseHelper.FIELD_NAME, "Rose");
+        plant1.put(MyDatabaseHelper.FIELD_FREQUENCY, 5);
+        plant1.put(MyDatabaseHelper.FIELD_LASTSPRINKLE, 2);
         db.insert(MyDatabaseHelper.TABLE_NAME, null, plant1);
     }
 }

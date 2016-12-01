@@ -16,7 +16,6 @@ public class Plant {
     //METHODS
     /**
      * Constructor
-     * @param id of the plant
      * @param n name of the plant
      * @param f sprinkle frequency
      * @param sprinkle number of days since the last sprinkle
