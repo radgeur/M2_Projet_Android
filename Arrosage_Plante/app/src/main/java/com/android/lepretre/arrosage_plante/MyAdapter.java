@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * Created by LEPRETRE Rémy
+ * Adapter of my RecyclerView
  */
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {

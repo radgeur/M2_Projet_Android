@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 /**
  * Created by LEPRETRE Rémy
+ * ViewHolder of my RecyclerView
  */
 
 public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener {

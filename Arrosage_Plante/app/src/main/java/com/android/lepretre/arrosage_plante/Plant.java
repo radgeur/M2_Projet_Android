@@ -2,10 +2,12 @@ package com.android.lepretre.arrosage_plante;
 
 /**
  * Created by LEPRETRE Rémy
+ * Class to instantiate the object Plant
  */
 
 public class Plant {
     //ATTRIBUTES
+    private long id;
     private String name;
     private int frequency;
     private int lastSprinkle;
@@ -14,6 +16,7 @@ public class Plant {
     //METHODS
     /**
      * Constructor
+     * @param id of the plant
      * @param n name of the plant
      * @param f sprinkle frequency
      * @param sprinkle number of days since the last sprinkle
@@ -25,6 +28,10 @@ public class Plant {
     }
 
     //Getters
+    public long getId(){
+        return this.id;
+    }
+
     public String getName(){
         return this.name;
     }
@@ -35,5 +42,18 @@ public class Plant {
 
     public int getLastSprinkle(){
         return this.lastSprinkle;
+    }
+
+    //Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
+    }
+
+    public void setLastSprinkle(int lastSprinkle) {
+        this.lastSprinkle = lastSprinkle;
     }
 }
