@@ -1,5 +1,7 @@
 package com.android.lepretre.arrosage_plante;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerVie
     public TextView name;
     public TextView frequency;
     public TextView lastSprinkle;
+    private static final int MONCODE = 10;
 
     //METHODS
     /**
@@ -42,7 +45,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerVie
 
     @Override
     public void onClick(View view) {
-
+        Intent crudPlant = new Intent(view.getContext(), CrudPlantActivity.class);
+        String status = "udpate";
+        crudPlant.putExtra("status", status);
+        ((Activity) CrudPlantActivity.context).startActivityForResult(crudPlant, MONCODE);
     }
 
 

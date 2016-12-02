@@ -10,28 +10,47 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.android.lepretre.arrosage_plante.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
+    <Button
+        android:text="Ajouter"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/recycler_items"
-        android:layout_marginTop="64dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="23dp"
-        android:layout_marginStart="23dp" />
+        android:id="@+id/addButton"
+        android:layout_alignBaseline="@+id/fixtures"
+        android:layout_alignBottom="@+id/fixtures"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="+1 jour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/oneMoreDay"
+        android:layout_alignBaseline="@+id/addButton"
+        android:layout_alignBottom="@+id/addButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="13dp"
+        android:layout_marginEnd="13dp" />
 
     <Button
         android:text="Fixtures"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fixtures"
+        android:layout_marginTop="16dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/recyclerView"
-        android:layout_alignStart="@+id/recyclerView"
-        android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="11dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/recycler_items"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/oneMoreDay"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

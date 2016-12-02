@@ -1,6 +1,7 @@
 Modifier l'image qui apparait sur le téléphone pour l'application ainsi que son nom
 Nom : Sprinkle
-Gérer le landscape
+bloquer le landscape
+bloquer le bouton fixtures une fois qu'on a cliquer dessus 
 
 Vous  remettrez  votre  travail  sous  la  forme  d’un  fichier  Nom_Prénom.zip  (pas  d’autre  format 
 autorisé !), par exemple Feuillebois_Philippe.zip, que vous m’enverrez par l’intermédiaire 

@@ -1,6 +1,7 @@
 package com.android.lepretre.arrosage_plante;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private List<Plant> plants = new ArrayList<Plant>();
+    private static final int MONCODE = 8;
 
 
     @Override
@@ -25,14 +26,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Retrieve the buttons
+        Button addPlantButton = (Button) this.findViewById(R.id.addButton);
+        Button fixtures = (Button) this.findViewById(R.id.fixtures);
+
         //Display the recyclerView
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new MyAdapter(plants));
+        
 
-        //Retrieve the fixtures button
-        Button fixtures = (Button) this.findViewById(R.id.fixtures);
-
+        //Display the fixtures in the recyclerView
         fixtures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +54,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //call the crudPlantActivity
+        addPlantButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent crudPlant = new Intent(view.getContext(), CrudPlantActivity.class);
+                String status = "add";
+                crudPlant.putExtra("status", status);
+                startActivityForResult(crudPlant, MONCODE);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        switch (requestCode) {
+            case MONCODE:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        break;
+
+                    case RESULT_CANCELED:
+                        break;
+
+                    default:
+                        break;
+                }
+            default:
+                break;
+        }
     }
 
     /**
