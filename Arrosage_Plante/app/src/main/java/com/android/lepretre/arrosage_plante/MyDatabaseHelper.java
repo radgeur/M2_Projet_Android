@@ -110,7 +110,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         ContentValues value = new ContentValues();
         value.put(FIELD_NAME, plant.getName());
         value.put(FIELD_FREQUENCY, plant.getFrequency());
-        value.put(FIELD_LASTSPRINKLE, 0);
+        value.put(FIELD_LASTSPRINKLE, plant.getLastSprinkle());
 
         String[] fields = {FIELD_KEY};
         String where = FIELD_KEY + " =?";

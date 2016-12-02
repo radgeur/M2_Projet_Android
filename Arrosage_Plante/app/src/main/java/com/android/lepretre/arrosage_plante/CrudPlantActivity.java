@@ -46,7 +46,7 @@ public class CrudPlantActivity extends AppCompatActivity {
             //when call by clicking on a recycler Item
             else{
                 //bind the pieces of information of plant with the textfield of the activity
-                Plant plant = dbHelper.selectById(getIntent().getExtras().getLong("id"));
+                final Plant plant = dbHelper.selectById(getIntent().getExtras().getLong("id"));
                 nameText.setText(plant.getName());
                 frequencyNumber.setText(Integer.toString(plant.getFrequency()));
 
@@ -57,7 +57,7 @@ public class CrudPlantActivity extends AppCompatActivity {
                         dbHelper.update(new Plant(getIntent().getExtras().getLong("id"),
                                 nameText.getText().toString(),
                                 Integer.parseInt(frequencyNumber.getText().toString()),
-                                0));
+                                plant.getLastSprinkle()));
                         Intent intent = getIntent();
                         /*intent.putExtra("id", getIntent().getExtras().getLong("id"));
                         intent.putExtra("name", nameText.getText().toString());

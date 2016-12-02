@@ -12,7 +12,7 @@ import android.widget.Toast;
  * ViewHolder of my RecyclerView
  */
 
-public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener {
+public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener, RecyclerView.OnLongClickListener {
 
     //ATTRIBUTES
     //Textbox to write the pieces of information about the plant
@@ -29,6 +29,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerVie
     public MyViewHolder(View v){
         super(v);
         v.setOnClickListener(this);
+        v.setOnLongClickListener(this);
         name = (TextView) v.findViewById(R.id.textView);
         frequency = (TextView) v.findViewById(R.id.textView2);
         lastSprinkle = (TextView) v.findViewById(R.id.textView3);
@@ -55,5 +56,11 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerVie
     }
 
 
-
+    @Override
+    public boolean onLongClick(View view) {
+        plant.setLastSprinkle(0);
+        MyDatabaseHelper dbHelper = new MyDatabaseHelper(view.getContext());
+        dbHelper.update(plant);
+        return true;
+    }
 }

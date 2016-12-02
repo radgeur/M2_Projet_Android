@@ -1,5 +1,6 @@
 package com.android.lepretre.arrosage_plante;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Plant plant = list.get(position);
         holder.bind(plant);
+        int frequency = plant.getFrequency();
+        int sprinkle = plant.getLastSprinkle();
+        if(sprinkle == frequency ||frequency==sprinkle-1)
+            holder.itemView.setBackgroundColor(Color.rgb(255,165,0));
+        else if(sprinkle > frequency)
+            holder.itemView.setBackgroundColor(Color.RED);
+        else
+            holder.itemView.setBackgroundColor(Color.GREEN);
     }
 
     @Override
@@ -45,5 +54,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void setList(List<Plant> plants){
+        this.list = plants;
     }
 }
