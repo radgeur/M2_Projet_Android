@@ -3,6 +3,10 @@ Nom : Sprinkle
 bloquer le landscape
 bloquer le bouton fixtures une fois qu'on a cliquer dessus 
 
+problemes:
+rawQuery fonctionne mais pas dbQuery
+onclick du viewHolder
+
 Vous  remettrez  votre  travail  sous  la  forme  d’un  fichier  Nom_Prénom.zip  (pas  d’autre  format 
 autorisé !), par exemple Feuillebois_Philippe.zip, que vous m’enverrez par l’intermédiaire 
 de  https://filesender.renater.fr/  (en  vous  connectant  avec  votre  identifiant  Lille  1),  et  ceci  avant  le  vendredi 2 décembre 2016 à 20h (je ne prendrai AUCUN travail en retard).

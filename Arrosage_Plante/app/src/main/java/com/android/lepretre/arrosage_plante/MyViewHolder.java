@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by LEPRETRE Rémy
@@ -18,7 +19,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerVie
     public TextView name;
     public TextView frequency;
     public TextView lastSprinkle;
-    private static final int MONCODE = 10;
+    private Plant plant;
 
     //METHODS
     /**
@@ -27,6 +28,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerVie
      */
     public MyViewHolder(View v){
         super(v);
+        v.setOnClickListener(this);
         name = (TextView) v.findViewById(R.id.textView);
         frequency = (TextView) v.findViewById(R.id.textView2);
         lastSprinkle = (TextView) v.findViewById(R.id.textView3);
@@ -37,6 +39,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerVie
      * @param plant
      */
     public void bind(Plant plant){
+        this.plant = plant;
         name.setText(String.valueOf(plant.getName()));
         frequency.setText("Fréquence d'arrosage : " + String.valueOf(plant.getFrequency()));
         lastSprinkle.setText("Arrosé il y a : " + String.valueOf(plant.getLastSprinkle()) + " jours");
@@ -46,9 +49,9 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements RecyclerVie
     @Override
     public void onClick(View view) {
         Intent crudPlant = new Intent(view.getContext(), CrudPlantActivity.class);
-        String status = "udpate";
-        crudPlant.putExtra("status", status);
-        ((Activity) CrudPlantActivity.context).startActivityForResult(crudPlant, MONCODE);
+        crudPlant.putExtra("status", "update");
+        crudPlant.putExtra("id", plant.getId());
+        ((MainActivity) view.getContext()).startActivityForResult(crudPlant, MainActivity.UPDATECODE);
     }
 
 

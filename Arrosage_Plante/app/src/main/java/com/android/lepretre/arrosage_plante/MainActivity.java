@@ -1,15 +1,13 @@
 package com.android.lepretre.arrosage_plante;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private List<Plant> plants = new ArrayList<Plant>();
-    private static final int MONCODE = 8;
+    public static final int ADDCODE = 8;
+    public static final int UPDATECODE = 10;
 
 
     @Override
@@ -26,42 +25,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Retrieve the buttons
+        final MyDatabaseHelper dbHelper = new MyDatabaseHelper(getApplicationContext());
+
+        //Retrieve the elements of the activity
         Button addPlantButton = (Button) this.findViewById(R.id.addButton);
         Button fixtures = (Button) this.findViewById(R.id.fixtures);
-
-        //Display the recyclerView
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
+        //Display the recyclerView and all the plants actually in the database
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        plants = (dbHelper.selectAll());
         recyclerView.setAdapter(new MyAdapter(plants));
-        
+
 
         //Display the fixtures in the recyclerView
         fixtures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fixtures();
-                MyDatabaseHelper dbHelper = new MyDatabaseHelper(getApplicationContext());
-                SQLiteDatabase db = dbHelper.getReadableDatabase();
-                Cursor plantsFixtures = db.query(MyDatabaseHelper.TABLE_NAME, null, null, null, null, null, null, null);
-                plantsFixtures.moveToFirst();
-                while(!plantsFixtures.isAfterLast()){
-                    plants.add(new Plant(plantsFixtures.getString(1), Integer.parseInt(plantsFixtures.getString(2)),
-                            Integer.parseInt(plantsFixtures.getString(3))));
-                    plantsFixtures.moveToNext();
-                }
+                plants = (dbHelper.selectAll());
                 recyclerView.setAdapter(new MyAdapter(plants));
             }
         });
 
-        //call the crudPlantActivity
+        //call the crudPlantActivity to can add a plant
         addPlantButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent crudPlant = new Intent(view.getContext(), CrudPlantActivity.class);
-                String status = "add";
-                crudPlant.putExtra("status", status);
-                startActivityForResult(crudPlant, MONCODE);
+                crudPlant.putExtra("status", "add");
+                startActivityForResult(crudPlant, ADDCODE);
             }
         });
 
@@ -69,13 +62,37 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        MyDatabaseHelper dbHelper = new MyDatabaseHelper(getApplicationContext());
         switch (requestCode) {
-            case MONCODE:
+            //when add a plant
+            case ADDCODE:
                 switch (resultCode) {
                     case RESULT_OK:
+                        dbHelper.insert(new Plant(data.getExtras().getString("name"),
+                                Integer.parseInt(data.getExtras().getString("frequency")),
+                                0));
+                        plants = (dbHelper.selectAll());
+                        recyclerView.setAdapter(new MyAdapter(plants));
                         break;
 
                     case RESULT_CANCELED:
+                        Toast.makeText(getApplicationContext(), "Plante non ajouté", Toast.LENGTH_LONG).show();
+                        break;
+
+                    default:
+                        break;
+                }
+
+             //when update a plant
+            case UPDATECODE:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        plants = (dbHelper.selectAll());
+                        recyclerView.setAdapter(new MyAdapter(plants));
+                        break;
+
+                    case RESULT_CANCELED:
+                        Toast.makeText(getApplicationContext(), "Modifications non enregistrés", Toast.LENGTH_LONG).show();
                         break;
 
                     default:
@@ -91,12 +108,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private void fixtures() {
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(getApplicationContext());
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        ContentValues plant1 = new ContentValues();
-        plant1.put(MyDatabaseHelper.FIELD_NAME, "Rose");
-        plant1.put(MyDatabaseHelper.FIELD_FREQUENCY, 5);
-        plant1.put(MyDatabaseHelper.FIELD_LASTSPRINKLE, 2);
-        db.insert(MyDatabaseHelper.TABLE_NAME, null, plant1);
+        dbHelper.insert(new Plant("Rose", 5, 2));
     }
 }

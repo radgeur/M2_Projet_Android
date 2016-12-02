@@ -26,6 +26,12 @@ public class Plant {
         lastSprinkle = sprinkle;
     }
 
+
+    public Plant(long id, String n, int f, int sprinkle){
+        this(n,f,sprinkle);
+        this.id=id;
+    }
+
     //Getters
     public long getId(){
         return this.id;
